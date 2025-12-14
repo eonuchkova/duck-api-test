@@ -3,6 +3,7 @@ package get;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
 import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.http.HttpStatus;
@@ -16,23 +17,57 @@ import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Bu
 public class DuckPropertiesTest extends TestNGCitrusSpringSupport {
     @Test(description = "проверка работы вызова характеристик уточки")
     @CitrusTest
-    public void DuckPropertiesCheck(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
+    public void DuckPropertiesCheckOdd(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
+        while (true) {
+            createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
 
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .receive()
-                        .response(HttpStatus.OK)
-                        .message()
-                        .type(MessageType.JSON)
-                        .extract(fromBody().expression("$.id", "duckId"))
-        );
+            runner.$(
+                    http()
+                            .client("http://localhost:2222")
+                            .receive()
+                            .response(HttpStatus.OK)
+                            .message()
+                            .type(MessageType.JSON)
+                            .extract(fromBody().expression("$.id", "duckId"))
+            );
+            String duckIdString = context.getVariable("duckId");
+            int id = Integer.parseInt(duckIdString);
+
+            if (!duckIsEven(id)) {
+                break;
+            }
+        }
         DuckGetProperties(runner, "${duckId}");
 
         validateResponse(runner, "{}");
     }
 
+    @Test(description = "проверка работы вызова характеристик уточки")
+    @CitrusTest
+    public void DuckPropertiesCheckEven(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
+        while (true) {
+            createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
+
+            runner.$(
+                    http()
+                            .client("http://localhost:2222")
+                            .receive()
+                            .response(HttpStatus.OK)
+                            .message()
+                            .type(MessageType.JSON)
+                            .extract(fromBody().expression("$.id", "duckId"))
+            );
+            String duckIdString = context.getVariable("duckId");
+            int id = Integer.parseInt(duckIdString);
+
+            if (duckIsEven(id)) {
+                break;
+            }
+        }
+        DuckGetProperties(runner, "${duckId}");
+
+        validateResponse(runner, "{}");
+    }
 
     public void createDuck(TestCaseRunner runner, String color, double height, String material, String sound, String wingsState) {
         runner.$(
@@ -77,4 +112,9 @@ public class DuckPropertiesTest extends TestNGCitrusSpringSupport {
                         .body(responseMessage)
         );
     }
+
+    public boolean duckIsEven(int id) {
+        return id % 2 == 0;
+    }
+
 }

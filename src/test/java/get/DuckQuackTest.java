@@ -39,7 +39,7 @@ public class DuckQuackTest extends TestNGCitrusSpringSupport {
             }
         }
         duckQuack(runner, "${duckId}", 2, 2);
-        validateResponse(runner, "{\n\"sound\":\"@ignore@\"\n}");
+        validateResponse(runner, "{\n\"sound\":\"moo-moo, moo-moo\"\n}");
 
     }
 
@@ -67,7 +67,7 @@ public class DuckQuackTest extends TestNGCitrusSpringSupport {
             }
         }
         duckQuack(runner, "${duckId}", 2, 2);
-        validateResponse(runner, "{\n\"sound\":\"@ignore@\"\n}");
+        validateResponse(runner, "{\n\"sound\":\"quack-quack, quack-quack\"\n}");
 
     }
 

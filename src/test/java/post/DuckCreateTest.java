@@ -12,6 +12,7 @@ import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
+import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 public class DuckCreateTest extends TestNGCitrusSpringSupport {
     @Test(description = "проверка, что уточка с материалом wood успешно создается")
@@ -21,12 +22,12 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
 
         validateResponse(runner, "{\n" +
-                "\"id\":\"@ignore@\",\n" +
-                "\"color\":\"@ignore@\",\n" +
-                "\"height\":\"@ignore@\",\n" +
+                "\"id\":\"{duckId}\",\n" +
+                "\"color\":\"green\",\n" +
+                "\"height\":2.0,\n" +
                 "\"material\":\"wood\",\n" +
-                "\"sound\":\"@ignore@\",\n" +
-                "\"wingsState\":\"@ignore@\"\n}");
+                "\"sound\":\"quack\",\n" +
+                "\"wingsState\":\"ACTIVE\"\n}");
     }
 
     @Test(description = "проверка, что уточка с материалом rubber успешно создается")
@@ -37,12 +38,12 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "blue", 4, "rubber", "quack", "FIXED");
 
         validateResponse(runner, "{\n" +
-                "\"id\":\"@ignore@\",\n" +
-                "\"color\":\"@ignore@\",\n" +
-                "\"height\":\"@ignore@\",\n" +
+                "\"id\":\"{duckId}\",\n" +
+                "\"color\":\"blue\",\n" +
+                "\"height\":4.0,\n" +
                 "\"material\":\"rubber\",\n" +
-                "\"sound\":\"@ignore@\",\n" +
-                "\"wingsState\":\"@ignore@\"\n}");
+                "\"sound\":\"quack\",\n" +
+                "\"wingsState\":\"FIXED\"\n}");
     }
 
 
@@ -72,6 +73,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
                         .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
+                        .extract(fromBody().expression("$.id", "duckId"))
                         .body(responseMessage)
         );
     }

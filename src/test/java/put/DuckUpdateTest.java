@@ -29,10 +29,11 @@ public class DuckUpdateTest extends TestNGCitrusSpringSupport {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         updateDuck(runner, "id", "blue", 8, "glass", "quack");
+        validateResponse(runner, "{\n\"message\":\"Duck with id = ${duckId} is updated\"\n}");
     }
 
-    @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
 
+    @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
     @CitrusTest
     public void successfulDuckUpdateColorAndSound(@Optional @CitrusResource TestCaseRunner runner) {
         createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");

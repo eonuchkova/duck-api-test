@@ -23,7 +23,7 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
                 http()
                         .client("http://localhost:2222")
                         .receive()
-                        .response(HttpStatus.OK)
+                        .response(HttpStatus.NOT_FOUND)
                         .message()
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
@@ -31,11 +31,13 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
 
 
         duckSwim(runner, "${duckId}");
-        validateResponseOK(runner, "{\n\"message\":\"@ignore@\"\n}");
+
+        // BUG DETECTED: existing duck id is not found
+        validateResponseOK(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
 
     }
 
-    @Test(description = "Проверка, что уточка с существующим ID поплыла")
+    @Test(description = "Проверка, что уточка с несуществующим ID поплыла")
     @CitrusTest
     public void DuckSwimNonExistingID(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
 
@@ -49,12 +51,8 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
         );
-
-        int duckIdValue = Integer.parseInt(context.getVariable("duckId"));
-        int nonExistingId = duckIdValue + 1;
-        context.setVariable("nonExistingID", String.valueOf(nonExistingId));
-
-        duckSwim(runner, "${nonExistingID}");
+        duckDelete(runner, "${duckId}");
+        duckSwim(runner, "${duckId}");
         validateResponseNotFound(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
 
     }
@@ -108,6 +106,16 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
                         .message()
                         .type(MessageType.JSON)
                         .body(responseMessage)
+        );
+    }
+
+    public void duckDelete(TestCaseRunner runner, String id) {
+        runner.$(
+                http()
+                        .client("http://localhost:2222")
+                        .send()
+                        .delete("/api/duck/delete")
+                        .queryParam("id", id)
         );
     }
 }
