@@ -1,56 +1,28 @@
-package post;
+package autotests.clients;
 
+import autotests.EndpointConfig;
 import com.consol.citrus.TestCaseRunner;
-import com.consol.citrus.annotations.CitrusResource;
-import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.http.client.HttpClient;
 import com.consol.citrus.message.MessageType;
-
 import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Test;
+import org.springframework.test.context.ContextConfiguration;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckCreateTest extends TestNGCitrusSpringSupport {
-    @Test(description = "проверка, что уточка с материалом wood успешно создается")
 
-    @CitrusTest
-    public void successfulCreateWood(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
-
-        validateResponse(runner, "{\n" +
-                "\"id\":\"{duckId}\",\n" +
-                "\"color\":\"green\",\n" +
-                "\"height\":2.0,\n" +
-                "\"material\":\"wood\",\n" +
-                "\"sound\":\"quack\",\n" +
-                "\"wingsState\":\"ACTIVE\"\n}");
-    }
-
-    @Test(description = "проверка, что уточка с материалом rubber успешно создается")
-
-    @CitrusTest
-    public void successfulCreateRubber(@Optional @CitrusResource TestCaseRunner runner) {
-
-        createDuck(runner, "blue", 4, "rubber", "quack", "FIXED");
-
-        validateResponse(runner, "{\n" +
-                "\"id\":\"{duckId}\",\n" +
-                "\"color\":\"blue\",\n" +
-                "\"height\":4.0,\n" +
-                "\"material\":\"rubber\",\n" +
-                "\"sound\":\"quack\",\n" +
-                "\"wingsState\":\"FIXED\"\n}");
-    }
-
+@ContextConfiguration(classes = {EndpointConfig.class})
+public class DuckCreateTestClient extends TestNGCitrusSpringSupport {
+    @Autowired
+    protected HttpClient duckService;
 
     public void createDuck(TestCaseRunner runner, String color, double height, String material, String sound, String wingsState) {
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .send()
                         .post("/api/duck/create")
                         .message()
@@ -68,7 +40,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
     public void validateResponse(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.OK)
                         .message()
@@ -77,5 +49,4 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
                         .body(responseMessage)
         );
     }
-
 }

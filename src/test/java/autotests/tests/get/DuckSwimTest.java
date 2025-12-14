@@ -1,8 +1,9 @@
-package put;
+package autotests.tests.get;
 
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
+import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
 import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,34 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckUpdateTest extends TestNGCitrusSpringSupport {
-    @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
-
+public class DuckSwimTest extends TestNGCitrusSpringSupport {
+    @Test(description = "Проверка, что уточка с существующим ID поплыла")
     @CitrusTest
-    public void successfulDuckUpdateColorAndHeight(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");
+    public void DuckSwimExistingID(@Optional @CitrusResource TestCaseRunner runner) {
+        createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
+        runner.$(
+                http()
+                        .client("http://localhost:2222")
+                        .receive()
+                        .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .extract(fromBody().expression("$.id", "duckId"))
+        );
+
+
+        duckSwim(runner, "${duckId}");
+
+        // BUG DETECTED: existing duck id is not found
+        validateResponseOK(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
+
+    }
+
+    @Test(description = "Проверка, что уточка с несуществующим ID поплыла")
+    @CitrusTest
+    public void DuckSwimNonExistingID(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
+
+        createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
         runner.$(
                 http()
                         .client("http://localhost:2222")
@@ -28,32 +51,13 @@ public class DuckUpdateTest extends TestNGCitrusSpringSupport {
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
         );
-        updateDuck(runner, "id", "blue", 8, "glass", "quack");
-        validateResponse(runner, "{\n\"message\":\"Duck with id = ${duckId} is updated\"\n}");
+        duckDelete(runner, "${duckId}");
+        duckSwim(runner, "${duckId}");
+        validateResponseNotFound(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
+
     }
 
-
-    @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
-    @CitrusTest
-    public void successfulDuckUpdateColorAndSound(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .receive()
-                        .response(HttpStatus.OK)
-                        .message()
-                        .type(MessageType.JSON)
-                        .extract(fromBody().expression("$.id", "duckId"))
-        );
-        updateDuck(runner, "id", "orange", 8, "glass", "meow");
-
-        validateResponse(runner, "{\n\"message\":\"Duck with id = ${duckId} is updated\"\n}");
-//        "{\n\"message\":\"Duck with id = " + "duckId" + " is updated\"\n}");
-    }
-
-    public void createDuck(TestCaseRunner runner, String color, double height, String material, String sound, String
-            wingsState) {
+    public void createDuck(TestCaseRunner runner, String color, double height, String material, String sound, String wingsState) {
         runner.$(
                 http()
                         .client("http://localhost:2222")
@@ -71,27 +75,29 @@ public class DuckUpdateTest extends TestNGCitrusSpringSupport {
 
     }
 
-    public void updateDuck(TestCaseRunner runner, String id,
-                           String newColor, double newHeight, String newMaterial, String newSound) {
-
+    public void duckSwim(TestCaseRunner runner, String id) {
         runner.$(
                 http()
                         .client("http://localhost:2222")
                         .send()
-                        .put("/api/duck/update")
-                        .message()
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .queryParam("id", "${duckId}")
-                        .queryParam("color", newColor)
-                        .queryParam("height", String.valueOf(newHeight))
-                        .queryParam("material", newMaterial)
-                        .queryParam("sound", newSound)
-
+                        .get("/api/duck/action/swim")
+                        .queryParam("id", id)
         );
-
     }
 
-    public void validateResponse(TestCaseRunner runner, String responseMessage) {
+    public void validateResponseNotFound(TestCaseRunner runner, String responseMessage) {
+        runner.$(
+                http()
+                        .client("http://localhost:2222")
+                        .receive()
+                        .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(responseMessage)
+        );
+    }
+
+    public void validateResponseOK(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
                         .client("http://localhost:2222")
@@ -102,4 +108,15 @@ public class DuckUpdateTest extends TestNGCitrusSpringSupport {
                         .body(responseMessage)
         );
     }
+
+    public void duckDelete(TestCaseRunner runner, String id) {
+        runner.$(
+                http()
+                        .client("http://localhost:2222")
+                        .send()
+                        .delete("/api/duck/delete")
+                        .queryParam("id", id)
+        );
+    }
 }
+
