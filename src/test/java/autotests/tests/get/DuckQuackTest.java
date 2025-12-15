@@ -45,7 +45,7 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
             }
         }
         duckQuack(runner, "${duckId}", 2, 2);
-        validateResponse(runner, "{\n\"sound\":\"moo-moo, moo-moo\"\n}");
+        validateGetResponse(runner, "getDuckProperties/quackExpectedResponseEven.json");
 
     }
 
@@ -79,7 +79,7 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
             }
         }
         duckQuack(runner, "${duckId}", 2, 2);
-        validateResponse(runner, "{\n\"sound\":\"quack-quack, quack-quack\"\n}");
+        validateGetResponse(runner, "getDuckProperties/quackExpectedResponseOdd.json");
     }
 
     public boolean duckIsEven(int id) {

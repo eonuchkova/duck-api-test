@@ -46,7 +46,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
         }
         DuckGetProperties(runner, "${duckId}");
 
-        validateResponse(runner, "{}");
+        validateGetResponse(runner, "getDuckProperties/getPropertiesExpectedResponse.json");
     }
 
     @Test(description = "проверка работы вызова характеристик уточки")
@@ -59,7 +59,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
                     .material("leather")
                     .sound("quack")
                     .wingsState("ACTIVE");
-            createDuck(runner, duckCreateProperties );
+            createDuck(runner, duckCreateProperties);
 
             runner.$(
                     http()
@@ -79,7 +79,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
         }
         DuckGetProperties(runner, "${duckId}");
 
-        validateResponse(runner, "{}");
+        validateGetResponse(runner, "getDuckProperties/getPropertiesExpectedResponse.json");
     }
 
     public boolean duckIsEven(int id) {

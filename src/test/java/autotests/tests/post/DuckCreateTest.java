@@ -25,13 +25,7 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
 
         createDuck(runner, duckCreateProperties);
 
-        validateResponse(runner, "{\n" +
-                "\"id\":\"@ignore@\",\n" +
-                "\"color\":\"green\",\n" +
-                "\"height\":2.0,\n" +
-                "\"material\":\"wood\",\n" +
-                "\"sound\":\"quack\",\n" +
-                "\"wingsState\":\"ACTIVE\"\n}");
+        validateGetResponse(runner, "postDuckProperties/createDuckWood.json");
     }
 
     @Test(description = "проверка, что уточка с материалом rubber успешно создается")
@@ -45,13 +39,7 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
                 .wingsState("FIXED");
         createDuck(runner, duckCreateProperties);
 
-        validateResponse(runner, "{\n" +
-                "\"id\":\"@ignore@\",\n" +
-                "\"color\":\"blue\",\n" +
-                "\"height\":4.0,\n" +
-                "\"material\":\"rubber\",\n" +
-                "\"sound\":\"quack\",\n" +
-                "\"wingsState\":\"FIXED\"\n}");
+        validateGetResponse(runner, "postDuckProperties/createDuckRubber.json");
     }
 
 }
