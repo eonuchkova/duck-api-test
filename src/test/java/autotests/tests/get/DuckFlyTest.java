@@ -1,10 +1,10 @@
 package autotests.tests.get;
 
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
-import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckFlyTest extends TestNGCitrusSpringSupport {
+public class DuckFlyTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев ACTIVE")
     @CitrusTest
     public void DuckFlyWingsActive(@Optional @CitrusResource TestCaseRunner runner) {

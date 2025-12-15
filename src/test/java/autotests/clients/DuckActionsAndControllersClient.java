@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
+import com.consol.citrus.context.TestContext;
+
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 
 @ContextConfiguration(classes = {EndpointConfig.class})
-public class DuckControllerTestClient extends TestNGCitrusSpringSupport {
+public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
     @Autowired
     protected HttpClient duckService;
 
@@ -45,6 +47,7 @@ public class DuckControllerTestClient extends TestNGCitrusSpringSupport {
                         .queryParam("id", id)
         );
     }
+
     public void updateDuck(TestCaseRunner runner, String id,
                            String newColor, double newHeight, String newMaterial, String newSound) {
 
@@ -63,7 +66,8 @@ public class DuckControllerTestClient extends TestNGCitrusSpringSupport {
         );
 
     }
-    public void validateResponse(TestCaseRunner runner, String responseMessage) {
+
+    public void validateCreateResponse(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
                         .client(duckService)
@@ -75,5 +79,63 @@ public class DuckControllerTestClient extends TestNGCitrusSpringSupport {
                         .body(responseMessage)
         );
     }
+    public void validateResponse(TestCaseRunner runner, String responseMessage) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.OK)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(responseMessage)
+        );
+    }
 
+
+        public void duckFly (TestCaseRunner runner, String id){
+            runner.$(
+                    http()
+                            .client(duckService)
+                            .send()
+                            .get("/api/duck/action/fly")
+                            .queryParam("id", id)
+            );
+        }
+
+        public void DuckGetProperties (TestCaseRunner runner, String id){
+
+            runner.$(
+                    http()
+                            .client(duckService)
+                            .send()
+                            .get("/api/duck/action/properties")
+                            .message()
+                            .contentType(MediaType.APPLICATION_JSON_VALUE)
+                            .queryParam("id", "${duckId}")
+            );
+        }
+
+        public void duckQuack (TestCaseRunner runner, String id, Integer repetitionCount, Integer soundCount){
+            runner.$(
+                    http()
+                            .client(duckService)
+                            .send()
+                            .get("/api/duck/action/quack")
+                            .queryParam("id", id)
+                            .queryParam("repetitionCount", String.valueOf(repetitionCount))
+                            .queryParam("soundCount", String.valueOf(soundCount))
+            );
+        }
+
+        public void duckSwim (TestCaseRunner runner, String id){
+            runner.$(
+                    http()
+                            .client(duckService)
+                            .send()
+                            .get("/api/duck/action/swim")
+                            .queryParam("id", id)
+            );
+        }
+//        String duckIdString = context.getVariable("duckId");
+//        int id = Integer.parseInt(duckIdString);
 }

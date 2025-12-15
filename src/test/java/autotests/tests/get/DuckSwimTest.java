@@ -1,5 +1,6 @@
 package autotests.tests.get;
 
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -14,14 +15,14 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckSwimTest extends TestNGCitrusSpringSupport {
+public class DuckSwimTest extends DuckActionsAndControllersClient {
     @Test(description = "Проверка, что уточка с существующим ID поплыла")
     @CitrusTest
     public void DuckSwimExistingID(@Optional @CitrusResource TestCaseRunner runner) {
         createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.NOT_FOUND)
                         .message()
@@ -44,7 +45,7 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.OK)
                         .message()
@@ -60,7 +61,7 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
     public void validateResponseNotFound(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.NOT_FOUND)
                         .message()
@@ -72,7 +73,7 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
     public void validateResponseOK(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.OK)
                         .message()

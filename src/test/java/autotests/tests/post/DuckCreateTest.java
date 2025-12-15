@@ -1,23 +1,18 @@
 package autotests.tests.post;
 
 import autotests.EndpointConfig;
-import autotests.clients.DuckControllerTestClient;
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.http.client.HttpClient;
-import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
 @ContextConfiguration(classes = EndpointConfig.class)
-public class DuckCreateTest extends TestNGCitrusSpringSupport {
-    @Autowired
-    public HttpClient duckService;
-
+public class DuckCreateTest extends DuckActionsAndControllersClient {
 
     @Test(description = "проверка, что уточка с материалом wood успешно создается")
     @CitrusTest

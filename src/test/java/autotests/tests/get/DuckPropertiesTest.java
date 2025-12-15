@@ -1,5 +1,6 @@
 package autotests.tests.get;
 
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -14,7 +15,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckPropertiesTest extends TestNGCitrusSpringSupport {
+public class DuckPropertiesTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка работы вызова характеристик уточки")
     @CitrusTest
     public void DuckPropertiesCheckOdd(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {

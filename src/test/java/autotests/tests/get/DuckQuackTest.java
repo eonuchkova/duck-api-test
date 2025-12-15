@@ -1,5 +1,6 @@
 package autotests.tests.get;
 
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -14,7 +15,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckQuackTest extends TestNGCitrusSpringSupport {
+public class DuckQuackTest extends DuckActionsAndControllersClient {
     @Test(description = "Проверка, что уточка с четным ID крякает")
     @CitrusTest
     public void successfulQuackEven(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
@@ -23,7 +24,7 @@ public class DuckQuackTest extends TestNGCitrusSpringSupport {
             createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
             runner.$(
                     http()
-                            .client("http://localhost:2222")
+                            .client(duckService)
                             .receive()
                             .response(HttpStatus.OK)
                             .message()
@@ -51,7 +52,7 @@ public class DuckQuackTest extends TestNGCitrusSpringSupport {
             createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
             runner.$(
                     http()
-                            .client("http://localhost:2222")
+                            .client(duckService)
                             .receive()
                             .response(HttpStatus.OK)
                             .message()

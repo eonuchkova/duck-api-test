@@ -1,5 +1,6 @@
 package autotests.tests.put;
 
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -13,7 +14,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-public class DuckUpdateTest extends TestNGCitrusSpringSupport {
+public class DuckUpdateTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
 
     @CitrusTest
@@ -21,7 +22,7 @@ public class DuckUpdateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.OK)
                         .message()
@@ -39,7 +40,7 @@ public class DuckUpdateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");
         runner.$(
                 http()
-                        .client("http://localhost:2222")
+                        .client(duckService)
                         .receive()
                         .response(HttpStatus.OK)
                         .message()

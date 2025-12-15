@@ -1,7 +1,7 @@
 package autotests.tests.delete;
 
 import autotests.EndpointConfig;
-import autotests.clients.DuckActionsClient;
+import autotests.clients.DuckActionsAndControllersClient;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -17,10 +17,7 @@ import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 @ContextConfiguration(classes = {EndpointConfig.class})
-public class DuckDeleteTest extends TestNGCitrusSpringSupport {
-
-    @Autowired
-    private DuckActionsClient client;
+public class DuckDeleteTest extends DuckActionsAndControllersClient {
 
     @Test(description = "Проверка, что созданная уточка успешно удаляется")
     @CitrusTest
