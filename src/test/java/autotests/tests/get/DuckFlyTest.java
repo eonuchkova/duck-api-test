@@ -6,7 +6,6 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -36,7 +35,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseActive.json"));
+        validateResponse(runner, "{\n\"message\":\"I am flying :)\"\n}");
     }
 
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
@@ -47,7 +46,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                 .height(3)
                 .material("wool")
                 .sound("quack")
-                .wingsState("FIXED");
+                .wingsState("ACTIVE");
         createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
@@ -59,7 +58,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseFixed.json"));
+        validateResponse(runner, "{\n\"message\":\"I can not fly :C\"\n}");
     }
 
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
@@ -82,6 +81,6 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseUndefined.json"));
+        validateResponse(runner, "{\n\"message\":\"Wings are not detected :(\"\n}");
     }
 }

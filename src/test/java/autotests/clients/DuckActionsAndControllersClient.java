@@ -2,7 +2,6 @@ package autotests.clients;
 
 import autotests.EndpointConfig;
 import autotests.payloads.DuckCreateProperties;
-import autotests.payloads.DuckIdProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.http.client.HttpClient;
 import com.consol.citrus.message.MessageType;
@@ -10,12 +9,13 @@ import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 
+
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
+import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 
 @ContextConfiguration(classes = {EndpointConfig.class})
@@ -47,6 +47,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
 
     public void updateDuck(TestCaseRunner runner, String id,
                            String newColor, double newHeight, String newMaterial, String newSound) {
+
         runner.$(
                 http()
                         .client(duckService)
@@ -63,7 +64,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
 
     }
 
-    public void validateCreateResponse(TestCaseRunner runner, DuckIdProperties duckIdProperties) {
+    public void validateCreateResponse(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
                         .client(duckService)
@@ -71,7 +72,8 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                         .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
-                        .body(new ObjectMappingPayloadBuilder(duckIdProperties, new ObjectMapper()))
+                        .extract(fromBody().expression("$.id", "duckId"))
+                        .body(responseMessage)
         );
     }
     public void validateResponse(TestCaseRunner runner, String responseMessage) {
@@ -85,17 +87,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                         .body(responseMessage)
         );
     }
-    public void validateGetResponse(TestCaseRunner runner, ClassPathResource expectedPayloadPath) {
-        runner.$(
-                http()
-                        .client(duckService)
-                        .receive()
-                        .response(HttpStatus.OK)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(new ClassPathResource(expectedPayloadPath.getPath()))
-        );
-    }
+
 
         public void duckFly (TestCaseRunner runner, String id){
             runner.$(
@@ -141,27 +133,4 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                             .queryParam("id", id)
             );
         }
-    public void validateResponseNotFound(TestCaseRunner runner, ClassPathResource expectedPayload) {
-        runner.$(
-                http()
-                        .client(duckService)
-                        .receive()
-                        .response(HttpStatus.NOT_FOUND)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(expectedPayload)
-        );
-    }
-
-    public void validateResponseOK(TestCaseRunner runner, ClassPathResource expectedPayload) {
-        runner.$(
-                http()
-                        .client(duckService)
-                        .receive()
-                        .response(HttpStatus.OK)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(expectedPayload)
-        );
-    }
 }

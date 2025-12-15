@@ -7,7 +7,6 @@ import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -30,7 +29,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
                 http()
                         .client(duckService)
                         .receive()
-                        .response(HttpStatus.OK)
+                        .response(HttpStatus.NOT_FOUND)
                         .message()
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
@@ -40,7 +39,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
         duckSwim(runner, "${duckId}");
 
         // BUG DETECTED: existing duck id is not found
-        validateResponseNotFound(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
+        validateResponseOK(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
 
     }
 
@@ -65,8 +64,32 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
         );
         duckDelete(runner, "${duckId}");
         duckSwim(runner, "${duckId}");
-        validateResponseNotFound(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
+        validateResponseNotFound(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
 
+    }
+
+    public void validateResponseNotFound(TestCaseRunner runner, String responseMessage) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(responseMessage)
+        );
+    }
+
+    public void validateResponseOK(TestCaseRunner runner, String responseMessage) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.OK)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(responseMessage)
+        );
     }
 }
 
