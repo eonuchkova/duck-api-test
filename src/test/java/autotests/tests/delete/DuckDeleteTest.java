@@ -41,6 +41,6 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
         );
 
         duckDelete(runner, "${duckId}");
-        validateResponse(runner, "{\n\"message\":\"Duck is deleted\"\n}");
+        validateGetResponse(runner, "deleteDuc/deleteDuckExpectedResponse.json");
     }
 }

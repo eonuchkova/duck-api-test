@@ -35,7 +35,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateResponse(runner, "{\n\"message\":\"I am flying :)\"\n}");
+        validateGetResponse(runner, "getDuckProperties/flyExpectedResponseActive.json");
     }
 
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
@@ -58,7 +58,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateResponse(runner, "{\n\"message\":\"I can not fly :C\"\n}");
+        validateGetResponse(runner, "getDuckProperties/flyExpectedResponseFixed.json");
     }
 
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
@@ -81,6 +81,6 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateResponse(runner, "{\n\"message\":\"Wings are not detected :(\"\n}");
+        validateGetResponse(runner, "getDuckProperties/flyExpectedResponseUndefined.json");
     }
 }

@@ -35,7 +35,7 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         updateDuck(runner, "id", "blue", 8, "glass", "quack");
-        validateResponse(runner, "{\n\"message\":\"Duck with id = ${duckId} is updated\"\n}");
+        validateGetResponse(runner, "putDuckProperties/updateDuckExpectedResponse.json");
     }
 
 
@@ -60,7 +60,6 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
         );
         updateDuck(runner, "id", "orange", 8, "glass", "meow");
 
-        validateResponse(runner, "{\n\"message\":\"Duck with id = ${duckId} is updated\"\n}");
-//        "{\n\"message\":\"Duck with id = " + "duckId" + " is updated\"\n}");
+        validateGetResponse(runner, "putDuckProperties/updateDuckExpectedResponse.json");
     }
 }
