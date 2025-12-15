@@ -68,53 +68,9 @@ public class DuckQuackTest extends TestNGCitrusSpringSupport {
         }
         duckQuack(runner, "${duckId}", 2, 2);
         validateResponse(runner, "{\n\"sound\":\"quack-quack, quack-quack\"\n}");
-
-    }
-
-    public void createDuck(TestCaseRunner runner, String color, double height, String material, String sound, String
-            wingsState) {
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .send()
-                        .post("/api/duck/create")
-                        .message()
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .body("{\n" +
-                                "\"color\":\"" + color + "\",\n" +
-                                "\"height\":" + height + ",\n" +
-                                "\"material\":\"" + material + "\",\n" +
-                                "\"sound\":\"" + sound + "\",\n" +
-                                "\"wingsState\":\"" + wingsState + "\"\n}")
-        );
-
     }
 
     public boolean duckIsEven(int id) {
         return id % 2 == 0;
-    }
-
-    public void duckQuack(TestCaseRunner runner, String id, Integer repetitionCount, Integer soundCount) {
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .send()
-                        .get("/api/duck/action/quack")
-                        .queryParam("id", id)
-                        .queryParam("repetitionCount", String.valueOf(repetitionCount))
-                        .queryParam("soundCount", String.valueOf(soundCount))
-        );
-    }
-
-    public void validateResponse(TestCaseRunner runner, String responseMessage) {
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .receive()
-                        .response(HttpStatus.OK)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(responseMessage)
-        );
     }
 }

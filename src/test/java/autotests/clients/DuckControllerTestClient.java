@@ -11,10 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
+import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 
 @ContextConfiguration(classes = {EndpointConfig.class})
-public class DuckDeleteTestClient extends TestNGCitrusSpringSupport {
+public class DuckControllerTestClient extends TestNGCitrusSpringSupport {
     @Autowired
     protected HttpClient duckService;
 
@@ -33,7 +34,6 @@ public class DuckDeleteTestClient extends TestNGCitrusSpringSupport {
                                 "\"sound\":\"" + sound + "\",\n" +
                                 "\"wingsState\":\"" + wingsState + "\"\n}")
         );
-
     }
 
     public void duckDelete(TestCaseRunner runner, String id) {
@@ -45,7 +45,24 @@ public class DuckDeleteTestClient extends TestNGCitrusSpringSupport {
                         .queryParam("id", id)
         );
     }
+    public void updateDuck(TestCaseRunner runner, String id,
+                           String newColor, double newHeight, String newMaterial, String newSound) {
 
+        runner.$(
+                http()
+                        .client(duckService)
+                        .send()
+                        .put("/api/duck/update")
+                        .message()
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .queryParam("id", "${duckId}")
+                        .queryParam("color", newColor)
+                        .queryParam("height", String.valueOf(newHeight))
+                        .queryParam("material", newMaterial)
+                        .queryParam("sound", newSound)
+        );
+
+    }
     public void validateResponse(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
@@ -54,7 +71,9 @@ public class DuckDeleteTestClient extends TestNGCitrusSpringSupport {
                         .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
+                        .extract(fromBody().expression("$.id", "duckId"))
                         .body(responseMessage)
         );
     }
+
 }

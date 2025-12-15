@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EndpointConfig {
-    @Bean
+    @Bean ("duckService")
     public HttpClient duckService(){
         return new HttpClientBuilder()
                 .requestUrl("http://localhost:2222")

@@ -85,34 +85,6 @@ public class DuckPropertiesTest extends TestNGCitrusSpringSupport {
                                 "\"wingsState\":\"" + wingsState + "\"\n}")
         );
     }
-
-    public void DuckGetProperties(TestCaseRunner runner, String id) {
-
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .send()
-                        .get("/api/duck/action/properties")
-                        .message()
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .queryParam("id", "${duckId}")
-
-        );
-
-    }
-
-    public void validateResponse(TestCaseRunner runner, String responseMessage) {
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .receive()
-                        .response(HttpStatus.OK)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(responseMessage)
-        );
-    }
-
     public boolean duckIsEven(int id) {
         return id % 2 == 0;
     }
