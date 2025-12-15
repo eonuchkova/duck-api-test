@@ -1,6 +1,7 @@
 package autotests.tests.get;
 
 import autotests.clients.DuckActionsAndControllersClient;
+import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -16,8 +17,14 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев ACTIVE")
     @CitrusTest
     public void DuckFlyWingsActive(@Optional @CitrusResource TestCaseRunner runner) {
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("blue")
+                .height(3)
+                .material("wool")
+                .sound("quack")
+                .wingsState("ACTIVE");
 
-        createDuck(runner, "blue", 3, "wool", "quack", "ACTIVE");
+        createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
                         .client(duckService)
@@ -34,8 +41,13 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
     @CitrusTest
     public void DuckFlyWingsFIXED(@Optional @CitrusResource TestCaseRunner runner) {
-
-        createDuck(runner, "blue", 3, "wool", "quack", "FIXED");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("blue")
+                .height(3)
+                .material("wool")
+                .sound("quack")
+                .wingsState("ACTIVE");
+        createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
                         .client(duckService)
@@ -52,8 +64,13 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
     @CitrusTest
     public void DuckFlyWingsUNDEFINED(@Optional @CitrusResource TestCaseRunner runner) {
-
-        createDuck(runner, "blue", 3, "wool", "quack", "UNDEFINED");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("blue")
+                .height(3)
+                .material("wool")
+                .sound("quack")
+                .wingsState("UNDEFINED");
+        createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
                         .client(duckService)

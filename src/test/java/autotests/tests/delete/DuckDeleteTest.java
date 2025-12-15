@@ -2,12 +2,11 @@ package autotests.tests.delete;
 
 import autotests.EndpointConfig;
 import autotests.clients.DuckActionsAndControllersClient;
+import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
-import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
@@ -23,7 +22,14 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
     @CitrusTest
 
     public void successfulDelete(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "purple", 7, "fur", "quack", "ACTIVE");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("purple")
+                .height(7)
+                .material("fur")
+                .sound("quack")
+                .wingsState("ACTIVE");
+
+        createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
                         .client("duckService")
@@ -33,7 +39,6 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
         );
-
 
         duckDelete(runner, "${duckId}");
         validateResponse(runner, "{\n\"message\":\"Duck is deleted\"\n}");

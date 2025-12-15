@@ -1,12 +1,12 @@
 package autotests.tests.get;
 
 import autotests.clients.DuckActionsAndControllersClient;
+import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
-import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.testng.annotations.Optional;
@@ -20,11 +20,17 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckPropertiesCheckOdd(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         while (true) {
-            createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
+            DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                    .color("green")
+                    .height(2)
+                    .material("wood")
+                    .sound("quack")
+                    .wingsState("ACTIVE");
+            createDuck(runner, duckCreateProperties);
 
             runner.$(
                     http()
-                            .client("http://localhost:2222")
+                            .client(duckService)
                             .receive()
                             .response(HttpStatus.OK)
                             .message()
@@ -47,11 +53,17 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckPropertiesCheckEven(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         while (true) {
-            createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
+            DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                    .color("white")
+                    .height(5)
+                    .material("leather")
+                    .sound("quack")
+                    .wingsState("ACTIVE");
+            createDuck(runner, duckCreateProperties );
 
             runner.$(
                     http()
-                            .client("http://localhost:2222")
+                            .client(duckService)
                             .receive()
                             .response(HttpStatus.OK)
                             .message()
@@ -70,22 +82,6 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
         validateResponse(runner, "{}");
     }
 
-    public void createDuck(TestCaseRunner runner, String color, double height, String material, String sound, String wingsState) {
-        runner.$(
-                http()
-                        .client("http://localhost:2222")
-                        .send()
-                        .post("/api/duck/create")
-                        .message()
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .body("{\n" +
-                                "\"color\":\"" + color + "\",\n" +
-                                "\"height\":" + height + ",\n" +
-                                "\"material\":\"" + material + "\",\n" +
-                                "\"sound\":\"" + sound + "\",\n" +
-                                "\"wingsState\":\"" + wingsState + "\"\n}")
-        );
-    }
     public boolean duckIsEven(int id) {
         return id % 2 == 0;
     }

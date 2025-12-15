@@ -2,11 +2,10 @@ package autotests.tests.post;
 
 import autotests.EndpointConfig;
 import autotests.clients.DuckActionsAndControllersClient;
+import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
-import com.consol.citrus.http.client.HttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -17,7 +16,14 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка, что уточка с материалом wood успешно создается")
     @CitrusTest
     public void successfulCreateWood(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("green")
+                .height(2)
+                .material("wood")
+                .sound("quack")
+                .wingsState("ACTIVE");
+
+        createDuck(runner, duckCreateProperties);
 
         validateResponse(runner, "{\n" +
                 "\"id\":\"@ignore@\",\n" +
@@ -31,8 +37,13 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка, что уточка с материалом rubber успешно создается")
     @CitrusTest
     public void successfulCreateRubber(@Optional @CitrusResource TestCaseRunner runner) {
-
-        createDuck(runner, "blue", 4, "rubber", "quack", "FIXED");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("blue")
+                .height(4.0)
+                .material("rubber")
+                .sound("quack")
+                .wingsState("FIXED");
+        createDuck(runner, duckCreateProperties);
 
         validateResponse(runner, "{\n" +
                 "\"id\":\"@ignore@\",\n" +

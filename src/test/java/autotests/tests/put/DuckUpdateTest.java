@@ -1,13 +1,12 @@
 package autotests.tests.put;
 
 import autotests.clients.DuckActionsAndControllersClient;
+import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
-import com.consol.citrus.testng.spring.TestNGCitrusSpringSupport;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
@@ -19,7 +18,13 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
 
     @CitrusTest
     public void successfulDuckUpdateColorAndHeight(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("pink")
+                .height(2.5)
+                .material("glass")
+                .sound("quack")
+                .wingsState("ACTIVE");
+        createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
                         .client(duckService)
@@ -37,7 +42,13 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
     @CitrusTest
     public void successfulDuckUpdateColorAndSound(@Optional @CitrusResource TestCaseRunner runner) {
-        createDuck(runner, "pink", 2.5, "glass", "quack", "ACTIVE");
+        DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
+                .color("pink")
+                .height(2.5)
+                .material("glass")
+                .sound("quack")
+                .wingsState("ACTIVE");
+        createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
                         .client(duckService)
