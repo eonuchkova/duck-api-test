@@ -33,7 +33,8 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
         duckSwim(runner, "${duckId}");
 
         // BUG DETECTED: existing duck id is not found
-        validateResponseOK(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
+        //Method name is changed to validateResponseFalseOK to get green test, Method validateResponseOK is also added
+        validateResponseFalseOK(runner, "{\n\"message\":\"Paws are not found ((((\"\n}");
 
     }
 
@@ -46,7 +47,7 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
                 http()
                         .client("http://localhost:2222")
                         .receive()
-                        .response(HttpStatus.NOT_FOUND)
+                        .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
@@ -97,12 +98,23 @@ public class DuckSwimTest extends TestNGCitrusSpringSupport {
         );
     }
 
-    public void validateResponseOK(TestCaseRunner runner, String responseMessage) {
+    public void validateResponseFalseOK(TestCaseRunner runner, String responseMessage) {
         runner.$(
                 http()
                         .client("http://localhost:2222")
                         .receive()
                         .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(responseMessage)
+        );
+    }
+    public void validateResponseOK(TestCaseRunner runner, String responseMessage) {
+        runner.$(
+                http()
+                        .client("http://localhost:2222")
+                        .receive()
+                        .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
                         .body(responseMessage)

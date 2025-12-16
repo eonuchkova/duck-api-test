@@ -22,7 +22,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
 
         validateResponse(runner, "{\n" +
-                "\"id\":\"@ignore@\",\n" +
+                "\"id\":\"{duckId}\",\n" +
                 "\"color\":\"green\",\n" +
                 "\"height\":2.0,\n" +
                 "\"material\":\"wood\",\n" +
@@ -38,7 +38,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "blue", 4, "rubber", "quack", "FIXED");
 
         validateResponse(runner, "{\n" +
-                "\"id\":\"@ignore@\",\n" +
+                "\"id\":\"{duckId}\",\n" +
                 "\"color\":\"blue\",\n" +
                 "\"height\":4.0,\n" +
                 "\"material\":\"rubber\",\n" +
@@ -73,9 +73,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
                         .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
-                        .extract(fromBody().expression("$.id", "duckId"))
                         .body(responseMessage)
-        );
+                        .extract(fromBody().expression("$.id", "duckId")));Z
     }
-
 }

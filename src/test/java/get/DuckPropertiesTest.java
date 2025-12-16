@@ -15,7 +15,7 @@ import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 public class DuckPropertiesTest extends TestNGCitrusSpringSupport {
-    @Test(description = "проверка работы вызова характеристик уточки")
+    @Test(description = "проверка работы вызова характеристик уточки с нечетным ID")
     @CitrusTest
     public void DuckPropertiesCheckOdd(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         while (true) {
@@ -42,7 +42,7 @@ public class DuckPropertiesTest extends TestNGCitrusSpringSupport {
         validateResponse(runner, "{}");
     }
 
-    @Test(description = "проверка работы вызова характеристик уточки")
+    @Test(description = "проверка работы вызова характеристик уточки с четным ID")
     @CitrusTest
     public void DuckPropertiesCheckEven(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         while (true) {
