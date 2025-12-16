@@ -6,6 +6,7 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
+import io.qameta.allure.Feature;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
@@ -14,6 +15,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
+@Feature("Тесты обновления характеристик уточки")
 public class DuckUpdateTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
 
@@ -36,7 +38,8 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         updateDuck(runner, "id", "blue", 8, "glass", "quack");
-        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
+        validateDuckInDatabase(runner, "id", "blue", "8", "glass", "quack", "ACTIVE");
+//        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 
 
@@ -60,7 +63,7 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         updateDuck(runner, "id", "orange", 8, "glass", "meow");
-
-        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
+        validateDuckInDatabase(runner, "id", "orange", "8", "glass", "meow", "ACTIVE");
+//        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 }

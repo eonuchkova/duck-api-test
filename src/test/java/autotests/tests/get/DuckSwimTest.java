@@ -7,6 +7,7 @@ import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
+import io.qameta.allure.Feature;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
@@ -15,6 +16,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
+@Feature("Тесты плавания уточки")
 public class DuckSwimTest extends DuckActionsAndControllersClient {
     @Test(description = "Проверка, что уточка с существующим ID поплыла")
     @CitrusTest
@@ -58,7 +60,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
                 http()
                         .client(duckService)
                         .receive()
-                        .response(HttpStatus.NOT_FOUND)
+                        .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))

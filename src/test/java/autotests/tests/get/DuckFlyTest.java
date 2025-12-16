@@ -6,6 +6,7 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
+import io.qameta.allure.Feature;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
@@ -14,6 +15,7 @@ import org.testng.annotations.Test;
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
+@Feature("Тесты полетов уточки с разными состояниями крыльев")
 public class DuckFlyTest extends DuckActionsAndControllersClient {
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев ACTIVE")
     @CitrusTest

@@ -6,11 +6,15 @@ import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
+import io.qameta.allure.Feature;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
+import static com.consol.citrus.container.FinallySequence.Builder.doFinally;
+
+@Feature("Тесты на создание уточки с разными материалами")
 @ContextConfiguration(classes = EndpointConfig.class)
 public class DuckCreateTest extends DuckActionsAndControllersClient {
 
@@ -43,4 +47,15 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
         validateGetResponse(runner, new ClassPathResource("postDuckProperties/createDuckRubber.json"));
     }
 
+    @Test
+    @CitrusTest
+    public void sqlDuckCreateTest(@Optional @CitrusResource TestCaseRunner runner) {
+        runner.variable("duckId", "1");
+        runner.$(doFinally().actions(context ->
+                databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
+databaseUpdate(runner, "insert into DUCK (id, color, height, material, sound, wings_state)\n" +
+        "values (${duckId}, 'orange', 3.0, 'cheese', 'hrum','ACTIVE');");
+//        sqlCreateDuck(runner, "${duckId}", "green", "2", "wood", "quack", "ACTIVE");
+//        validateDuckInDatabase(runner, "${duckId}", "green", "2", "wood", "quack", "ACTIVE");
+    }
 }
