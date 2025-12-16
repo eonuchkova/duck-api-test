@@ -22,7 +22,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "green", 2, "wood", "quack", "ACTIVE");
 
         validateResponse(runner, "{\n" +
-                "\"id\":\"{duckId}\",\n" +
+                "\"id\":\"@ignore@\",\n" +
                 "\"color\":\"green\",\n" +
                 "\"height\":2.0,\n" +
                 "\"material\":\"wood\",\n" +
@@ -38,7 +38,7 @@ public class DuckCreateTest extends TestNGCitrusSpringSupport {
         createDuck(runner, "blue", 4, "rubber", "quack", "FIXED");
 
         validateResponse(runner, "{\n" +
-                "\"id\":\"{duckId}\",\n" +
+                "\"id\":\"@ignore@\",\n" +
                 "\"color\":\"blue\",\n" +
                 "\"height\":4.0,\n" +
                 "\"material\":\"rubber\",\n" +
