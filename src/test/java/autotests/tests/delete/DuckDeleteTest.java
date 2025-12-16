@@ -7,6 +7,9 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
+import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
@@ -41,6 +44,6 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
         );
 
         duckDelete(runner, "${duckId}");
-        validateGetResponse(runner, "deleteDuc/deleteDuckExpectedResponse.json");
+        validateGetResponse(runner, new ClassPathResource("deleteDuc/deleteDuckExpectedResponse.json"));
     }
 }

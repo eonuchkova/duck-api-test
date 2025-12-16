@@ -86,7 +86,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                         .body(responseMessage)
         );
     }
-    public void validateGetResponse(TestCaseRunner runner, ClassPathResource expectedPayload) {
+    public void validateGetResponse(TestCaseRunner runner, ClassPathResource expectedPayloadPath) {
         runner.$(
                 http()
                         .client(duckService)
@@ -94,7 +94,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                         .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
-                        .body(expectedPayload)
+                        .body(new ClassPathResource(expectedPayloadPath.getPath()))
         );
     }
 

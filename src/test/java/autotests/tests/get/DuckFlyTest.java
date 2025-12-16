@@ -6,6 +6,7 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -35,7 +36,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateGetResponse(runner, "getDuckProperties/flyExpectedResponseActive.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseActive.json"));
     }
 
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
@@ -46,7 +47,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                 .height(3)
                 .material("wool")
                 .sound("quack")
-                .wingsState("ACTIVE");
+                .wingsState("FIXED");
         createDuck(runner, duckCreateProperties);
         runner.$(
                 http()
@@ -58,7 +59,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateGetResponse(runner, "getDuckProperties/flyExpectedResponseFixed.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseFixed.json"));
     }
 
     @Test(description = "проверка результата действия полета у уточки со статусом крыльев FIXED")
@@ -81,6 +82,6 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         duckFly(runner, "${duckId}");
-        validateGetResponse(runner, "getDuckProperties/flyExpectedResponseUndefined.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseUndefined.json"));
     }
 }
