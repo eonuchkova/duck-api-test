@@ -6,6 +6,7 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -35,7 +36,7 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
                         .extract(fromBody().expression("$.id", "duckId"))
         );
         updateDuck(runner, "id", "blue", 8, "glass", "quack");
-        validateGetResponse(runner, "putDuckProperties/updateDuckExpectedResponse.json");
+        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 
 
@@ -60,6 +61,6 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
         );
         updateDuck(runner, "id", "orange", 8, "glass", "meow");
 
-        validateGetResponse(runner, "putDuckProperties/updateDuckExpectedResponse.json");
+        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 }

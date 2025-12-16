@@ -7,6 +7,7 @@ import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -45,7 +46,7 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
             }
         }
         duckQuack(runner, "${duckId}", 2, 2);
-        validateGetResponse(runner, "getDuckProperties/quackExpectedResponseEven.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/quackExpectedResponseEven.json"));
 
     }
 
@@ -79,7 +80,7 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
             }
         }
         duckQuack(runner, "${duckId}", 2, 2);
-        validateGetResponse(runner, "getDuckProperties/quackExpectedResponseOdd.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/quackExpectedResponseOdd.json"));
     }
 
     public boolean duckIsEven(int id) {

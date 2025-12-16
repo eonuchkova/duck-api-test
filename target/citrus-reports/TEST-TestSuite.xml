@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TestSuite" time="0.0" tests="2" errors="0" skipped="0" failures="0">
-    <testcase name="DuckCreateTest.successfulCreateRubber" classname="autotests.tests.post.DuckCreateTest" time="0.0"/>
-    <testcase name="DuckCreateTest.successfulCreateWood" classname="autotests.tests.post.DuckCreateTest" time="0.0"/>
+<testsuite name="TestSuite" time="0.0" tests="1" errors="0" skipped="0" failures="0">
+    <testcase name="DuckSwimTest.DuckSwimExistingID" classname="autotests.tests.get.DuckSwimTest" time="0.0"/>
 </testsuite>

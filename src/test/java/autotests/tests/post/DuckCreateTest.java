@@ -6,6 +6,7 @@ import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
@@ -25,7 +26,7 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
 
         createDuck(runner, duckCreateProperties);
 
-        validateGetResponse(runner, "postDuckProperties/createDuckWood.json");
+        validateGetResponse(runner, new ClassPathResource("postDuckProperties/createDuckWood.json"));
     }
 
     @Test(description = "проверка, что уточка с материалом rubber успешно создается")
@@ -39,7 +40,7 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
                 .wingsState("FIXED");
         createDuck(runner, duckCreateProperties);
 
-        validateGetResponse(runner, "postDuckProperties/createDuckRubber.json");
+        validateGetResponse(runner, new ClassPathResource("postDuckProperties/createDuckRubber.json"));
     }
 
 }

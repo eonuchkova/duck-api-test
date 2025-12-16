@@ -7,8 +7,8 @@ import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.context.TestContext;
 import com.consol.citrus.message.MessageType;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
@@ -46,7 +46,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
         }
         DuckGetProperties(runner, "${duckId}");
 
-        validateGetResponse(runner, "getDuckProperties/getPropertiesExpectedResponse.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/getPropertiesExpectedResponse.json"));
     }
 
     @Test(description = "проверка работы вызова характеристик уточки")
@@ -79,7 +79,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
         }
         DuckGetProperties(runner, "${duckId}");
 
-        validateGetResponse(runner, "getDuckProperties/getPropertiesExpectedResponse.json");
+        validateGetResponse(runner, new ClassPathResource("getExpectedResponses/getPropertiesExpectedResponse.json"));
     }
 
     public boolean duckIsEven(int id) {
