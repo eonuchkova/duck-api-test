@@ -12,6 +12,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
+import java.util.Random;
+
 import static com.consol.citrus.container.FinallySequence.Builder.doFinally;
 
 @Feature("Тесты на создание уточки с разными материалами")
@@ -50,7 +52,10 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
     @Test
     @CitrusTest
     public void sqlDuckCreateTest(@Optional @CitrusResource TestCaseRunner runner) {
-        runner.variable("duckId", "14567");
+        Random random = new Random();
+        int duckId = random.nextInt(1000);
+
+        runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
         sqlCreateDuck(runner, "${duckId}", "green", "2.0", "wood", "quack", "ACTIVE");
