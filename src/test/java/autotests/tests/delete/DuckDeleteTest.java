@@ -61,5 +61,7 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
         createDuck(runner, duckCreateProperties);
         sqlExtractId(runner);
         sqlDuckDelete(runner, "${duckId}");
+        validateGetResponse(runner, new ClassPathResource("deleteDuc/deleteDuckExpectedResponse.json"));
+
     }
 }
