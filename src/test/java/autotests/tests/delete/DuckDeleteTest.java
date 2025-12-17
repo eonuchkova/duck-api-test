@@ -62,6 +62,4 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
         sqlExtractId(runner);
         sqlDuckDelete(runner, "${duckId}");
     }
-
-
 }

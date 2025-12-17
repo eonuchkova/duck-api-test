@@ -37,13 +37,13 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
         );
-        updateDuck(runner, "id", "blue", 8, "glass", "quack");
-        validateDuckInDatabase(runner, "id", "blue", "8", "glass", "quack", "ACTIVE");
+        updateDuck(runner, "${duckId}", "blue", 8, "glass", "quack");
+        validateDuckInDatabase(runner, "${duckId}", "blue", "8.0", "glass", "quack", "ACTIVE");
 //        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 
 
-    @Test(description = "проверка, что цвет и рост уточки успешно обновляются")
+    @Test(description = "проверка, что цвет и звук уточки успешно обновляются")
     @CitrusTest
     public void successfulDuckUpdateColorAndSound(@Optional @CitrusResource TestCaseRunner runner) {
         DuckCreateProperties duckCreateProperties = new DuckCreateProperties()
@@ -62,8 +62,8 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
         );
-        updateDuck(runner, "id", "orange", 8, "glass", "meow");
-        validateDuckInDatabase(runner, "id", "orange", "8", "glass", "meow", "ACTIVE");
+        updateDuck(runner, "${duckId}", "orange", 2.5, "glass", "meow");
+        validateDuckInDatabase(runner, "${duckId}", "orange", "2.5", "glass", "meow", "ACTIVE");
 //        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 }

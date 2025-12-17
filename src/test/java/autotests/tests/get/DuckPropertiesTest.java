@@ -47,7 +47,6 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
             }
         }
         DuckGetProperties(runner, "${duckId}");
-
         validateGetResponse(runner, new ClassPathResource("getExpectedResponses/getPropertiesExpectedResponse.json"));
     }
 
@@ -80,7 +79,6 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
             }
         }
         DuckGetProperties(runner, "${duckId}");
-
         validateGetResponse(runner, new ClassPathResource("getExpectedResponses/getPropertiesExpectedResponse.json"));
     }
 

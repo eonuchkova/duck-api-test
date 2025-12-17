@@ -104,11 +104,11 @@
                     </tr>
                     <tr class="even">
                         <th>Failed</th>
-                        <td>3&nbsp;&nbsp;|&nbsp;&nbsp;18.8%</td>
+                        <td>0&nbsp;&nbsp;|&nbsp;&nbsp;0.0%</td>
                     </tr>
                     <tr class="odd">
                         <th>Successful</th>
-                        <td>13&nbsp;&nbsp;|&nbsp;&nbsp;81.2%</td>
+                        <td>16&nbsp;&nbsp;|&nbsp;&nbsp;100.0%</td>
                     </tr>
                 </tbody>
             </table>
@@ -116,7 +116,7 @@
             <h1>Tests results (16 Tests)</h1>
             <table id="test-results">
                 <tbody>
-                    <tr class="failure" onmouseover="showTooltip('DuckDeleteTest.sqlDuckDeleteTestInfo', event);" onmouseout="hideTooltip();">
+                    <tr class="success" onmouseover="showTooltip('DuckDeleteTest.sqlDuckDeleteTestInfo', event);" onmouseout="hideTooltip();">
     <th>DuckDeleteTest.sqlDuckDeleteTest
         <span class="tooltip" id="DuckDeleteTest.sqlDuckDeleteTestInfo">
         <b><i>DuckDeleteTest.sqlDuckDeleteTest</i></b><br/>
@@ -128,74 +128,9 @@
         <b>Description:</b> <br/>
         </span>
     </th>
-    <td>FAILURE</td>
+    <td>SUCCESS</td>
 </tr>
-<tr><td colspan="2"><div class="error-detail"><pre>com.consol.citrus.exceptions.CitrusRuntimeException: Missing keyword SELECT in statement: Delete from duck where ID = ${duckId}
- 
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.validateSqlStatement(ExecuteSQLQueryAction.java:340)
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.executeStatements(ExecuteSQLQueryAction.java:147)
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.doExecute(ExecuteSQLQueryAction.java:118)
-	 at com.consol.citrus.actions.AbstractDatabaseConnectingTestAction.execute(AbstractDatabaseConnectingTestAction.java:91)
-	 at com.consol.citrus.DefaultTestCase.executeAction(DefaultTestCase.java:136)
-	 at com.consol.citrus.DefaultTestCaseRunner.run(DefaultTestCaseRunner.java:125)
-	 at com.consol.citrus.TestActionRunner.$(TestActionRunner.java:35)
-	 at autotests.clients.DuckActionsAndControllersClient.sqlDuckDelete(DuckActionsAndControllersClient.java:71)
-	 at autotests.tests.delete.DuckDeleteTest.sqlDuckDeleteTest(DuckDeleteTest.java:63)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	 at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	 at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
-	 at com.consol.citrus.testng.TestNGHelper.lambda$invokeTestMethod$1(TestNGHelper.java:82)
-	 at com.consol.citrus.common.DefaultTestLoader.lambda$doLoad$1(DefaultTestLoader.java:116)
-	 at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-	 at com.consol.citrus.common.DefaultTestLoader.doLoad(DefaultTestLoader.java:116)
-	 at com.consol.citrus.common.DefaultTestLoader.load(DefaultTestLoader.java:94)
-	 at com.consol.citrus.testng.TestNGHelper.invokeTestMethod(TestNGHelper.java:83)
-	 at com.consol.citrus.testng.spring.TestNGCitrusSpringSupport.run(TestNGCitrusSpringSupport.java:185)
-	 at com.consol.citrus.testng.spring.TestNGCitrusSpringSupport.run(TestNGCitrusSpringSupport.java:101)
-	 at org.testng.internal.invokers.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:272)
-	 at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:669)
-	 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)
-	 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
-	 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)
-	 at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)
-	 at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
-	 at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
-	 at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-	 at org.testng.TestRunner.privateRun(TestRunner.java:829)
-	 at org.testng.TestRunner.run(TestRunner.java:602)
-	 at org.testng.SuiteRunner.runTest(SuiteRunner.java:437)
-	 at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)
-	 at org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)
-	 at org.testng.SuiteRunner.run(SuiteRunner.java:330)
-	 at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	 at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-	 at org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)
-	 at org.testng.TestNG.runSuitesLocally(TestNG.java:1176)
-	 at org.testng.TestNG.runSuites(TestNG.java:1099)
-	 at org.testng.TestNG.run(TestNG.java:1067)
-	 at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:153)
-	 at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:95)
-	 at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	 at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	 at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	 at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	 at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	 at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
-	 at com.sun.proxy.$Proxy4.stop(Unknown Source)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
-	 at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	 at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)
-	 at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
-	 at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	 at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)</pre></div></td></tr><tr class="success" onmouseover="showTooltip('DuckDeleteTest.successfulDeleteInfo', event);" onmouseout="hideTooltip();">
+<tr class="success" onmouseover="showTooltip('DuckDeleteTest.successfulDeleteInfo', event);" onmouseout="hideTooltip();">
     <th>DuckDeleteTest.successfulDelete
         <span class="tooltip" id="DuckDeleteTest.successfulDeleteInfo">
         <b><i>DuckDeleteTest.successfulDelete</i></b><br/>
@@ -377,7 +312,7 @@
     </th>
     <td>SUCCESS</td>
 </tr>
-<tr class="failure" onmouseover="showTooltip('DuckUpdateTest.successfulDuckUpdateColorAndHeightInfo', event);" onmouseout="hideTooltip();">
+<tr class="success" onmouseover="showTooltip('DuckUpdateTest.successfulDuckUpdateColorAndHeightInfo', event);" onmouseout="hideTooltip();">
     <th>DuckUpdateTest.successfulDuckUpdateColorAndHeight
         <span class="tooltip" id="DuckUpdateTest.successfulDuckUpdateColorAndHeightInfo">
         <b><i>DuckUpdateTest.successfulDuckUpdateColorAndHeight</i></b><br/>
@@ -389,74 +324,9 @@
         <b>Description:</b> <br/>
         </span>
     </th>
-    <td>FAILURE</td>
+    <td>SUCCESS</td>
 </tr>
-<tr><td colspan="2"><div class="error-detail"><pre>com.consol.citrus.exceptions.CitrusRuntimeException: Validation failed for column: 'COLOR' expected rows count: 1 but was 120
- 
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.performControlResultSetValidation(ExecuteSQLQueryAction.java:320)
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.performValidation(ExecuteSQLQueryAction.java:297)
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.doExecute(ExecuteSQLQueryAction.java:122)
-	 at com.consol.citrus.actions.AbstractDatabaseConnectingTestAction.execute(AbstractDatabaseConnectingTestAction.java:91)
-	 at com.consol.citrus.DefaultTestCase.executeAction(DefaultTestCase.java:136)
-	 at com.consol.citrus.DefaultTestCaseRunner.run(DefaultTestCaseRunner.java:125)
-	 at com.consol.citrus.TestActionRunner.$(TestActionRunner.java:35)
-	 at autotests.clients.DuckActionsAndControllersClient.validateDuckInDatabase(DuckActionsAndControllersClient.java:59)
-	 at autotests.tests.put.DuckUpdateTest.successfulDuckUpdateColorAndHeight(DuckUpdateTest.java:41)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	 at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	 at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
-	 at com.consol.citrus.testng.TestNGHelper.lambda$invokeTestMethod$1(TestNGHelper.java:82)
-	 at com.consol.citrus.common.DefaultTestLoader.lambda$doLoad$1(DefaultTestLoader.java:116)
-	 at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-	 at com.consol.citrus.common.DefaultTestLoader.doLoad(DefaultTestLoader.java:116)
-	 at com.consol.citrus.common.DefaultTestLoader.load(DefaultTestLoader.java:94)
-	 at com.consol.citrus.testng.TestNGHelper.invokeTestMethod(TestNGHelper.java:83)
-	 at com.consol.citrus.testng.spring.TestNGCitrusSpringSupport.run(TestNGCitrusSpringSupport.java:185)
-	 at com.consol.citrus.testng.spring.TestNGCitrusSpringSupport.run(TestNGCitrusSpringSupport.java:101)
-	 at org.testng.internal.invokers.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:272)
-	 at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:669)
-	 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)
-	 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
-	 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)
-	 at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)
-	 at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
-	 at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
-	 at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-	 at org.testng.TestRunner.privateRun(TestRunner.java:829)
-	 at org.testng.TestRunner.run(TestRunner.java:602)
-	 at org.testng.SuiteRunner.runTest(SuiteRunner.java:437)
-	 at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)
-	 at org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)
-	 at org.testng.SuiteRunner.run(SuiteRunner.java:330)
-	 at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	 at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-	 at org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)
-	 at org.testng.TestNG.runSuitesLocally(TestNG.java:1176)
-	 at org.testng.TestNG.runSuites(TestNG.java:1099)
-	 at org.testng.TestNG.run(TestNG.java:1067)
-	 at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:153)
-	 at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:95)
-	 at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	 at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	 at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	 at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	 at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	 at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
-	 at com.sun.proxy.$Proxy4.stop(Unknown Source)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
-	 at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	 at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)
-	 at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
-	 at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	 at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)</pre></div></td></tr><tr class="failure" onmouseover="showTooltip('DuckUpdateTest.successfulDuckUpdateColorAndSoundInfo', event);" onmouseout="hideTooltip();">
+<tr class="success" onmouseover="showTooltip('DuckUpdateTest.successfulDuckUpdateColorAndSoundInfo', event);" onmouseout="hideTooltip();">
     <th>DuckUpdateTest.successfulDuckUpdateColorAndSound
         <span class="tooltip" id="DuckUpdateTest.successfulDuckUpdateColorAndSoundInfo">
         <b><i>DuckUpdateTest.successfulDuckUpdateColorAndSound</i></b><br/>
@@ -468,74 +338,9 @@
         <b>Description:</b> <br/>
         </span>
     </th>
-    <td>FAILURE</td>
+    <td>SUCCESS</td>
 </tr>
-<tr><td colspan="2"><div class="error-detail"><pre>com.consol.citrus.exceptions.CitrusRuntimeException: Validation failed for column: 'COLOR' expected rows count: 1 but was 121
- 
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.performControlResultSetValidation(ExecuteSQLQueryAction.java:320)
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.performValidation(ExecuteSQLQueryAction.java:297)
-	 at com.consol.citrus.actions.ExecuteSQLQueryAction.doExecute(ExecuteSQLQueryAction.java:122)
-	 at com.consol.citrus.actions.AbstractDatabaseConnectingTestAction.execute(AbstractDatabaseConnectingTestAction.java:91)
-	 at com.consol.citrus.DefaultTestCase.executeAction(DefaultTestCase.java:136)
-	 at com.consol.citrus.DefaultTestCaseRunner.run(DefaultTestCaseRunner.java:125)
-	 at com.consol.citrus.TestActionRunner.$(TestActionRunner.java:35)
-	 at autotests.clients.DuckActionsAndControllersClient.validateDuckInDatabase(DuckActionsAndControllersClient.java:59)
-	 at autotests.tests.put.DuckUpdateTest.successfulDuckUpdateColorAndSound(DuckUpdateTest.java:66)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	 at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	 at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:282)
-	 at com.consol.citrus.testng.TestNGHelper.lambda$invokeTestMethod$1(TestNGHelper.java:82)
-	 at com.consol.citrus.common.DefaultTestLoader.lambda$doLoad$1(DefaultTestLoader.java:116)
-	 at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-	 at com.consol.citrus.common.DefaultTestLoader.doLoad(DefaultTestLoader.java:116)
-	 at com.consol.citrus.common.DefaultTestLoader.load(DefaultTestLoader.java:94)
-	 at com.consol.citrus.testng.TestNGHelper.invokeTestMethod(TestNGHelper.java:83)
-	 at com.consol.citrus.testng.spring.TestNGCitrusSpringSupport.run(TestNGCitrusSpringSupport.java:185)
-	 at com.consol.citrus.testng.spring.TestNGCitrusSpringSupport.run(TestNGCitrusSpringSupport.java:101)
-	 at org.testng.internal.invokers.MethodInvocationHelper.invokeHookable(MethodInvocationHelper.java:272)
-	 at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:669)
-	 at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:221)
-	 at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:50)
-	 at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:969)
-	 at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:194)
-	 at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
-	 at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
-	 at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
-	 at org.testng.TestRunner.privateRun(TestRunner.java:829)
-	 at org.testng.TestRunner.run(TestRunner.java:602)
-	 at org.testng.SuiteRunner.runTest(SuiteRunner.java:437)
-	 at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:431)
-	 at org.testng.SuiteRunner.privateRun(SuiteRunner.java:391)
-	 at org.testng.SuiteRunner.run(SuiteRunner.java:330)
-	 at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
-	 at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
-	 at org.testng.TestNG.runSuitesSequentially(TestNG.java:1256)
-	 at org.testng.TestNG.runSuitesLocally(TestNG.java:1176)
-	 at org.testng.TestNG.runSuites(TestNG.java:1099)
-	 at org.testng.TestNG.run(TestNG.java:1067)
-	 at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.runTests(TestNGTestClassProcessor.java:153)
-	 at org.gradle.api.internal.tasks.testing.testng.TestNGTestClassProcessor.stop(TestNGTestClassProcessor.java:95)
-	 at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:63)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	 at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	 at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	 at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	 at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	 at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:92)
-	 at com.sun.proxy.$Proxy4.stop(Unknown Source)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:200)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:132)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
-	 at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
-	 at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	 at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)
-	 at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
-	 at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	 at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)</pre></div></td></tr>
+
                 </tbody>
             </table>
         </div>

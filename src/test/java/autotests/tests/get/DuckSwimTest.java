@@ -43,7 +43,6 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
 
         // BUG DETECTED: existing duck id is not found
         validateResponseOK(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
-
     }
 
     @Test(description = "Проверка, что уточка с несуществующим ID поплыла")
@@ -68,7 +67,6 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
         duckDelete(runner, "${duckId}");
         duckSwim(runner, "${duckId}");
         validateResponseNotFound(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
-
     }
 
     public void validateResponseNotFound(TestCaseRunner runner, ClassPathResource expectedPayload) {
