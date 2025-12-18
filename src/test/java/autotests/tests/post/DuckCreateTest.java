@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
-@ContextConfiguration(classes = EndpointConfig.class)
 public class DuckCreateTest extends DuckActionsAndControllersClient {
 
     @Test(description = "проверка, что уточка с материалом wood успешно создается")

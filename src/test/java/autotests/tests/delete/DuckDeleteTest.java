@@ -1,24 +1,19 @@
 package autotests.tests.delete;
 
-import autotests.EndpointConfig;
 import autotests.clients.DuckActionsAndControllersClient;
 import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import com.consol.citrus.message.MessageType;
-import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.ContextConfiguration;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
-@ContextConfiguration(classes = {EndpointConfig.class})
 public class DuckDeleteTest extends DuckActionsAndControllersClient {
 
     @Test(description = "Проверка, что созданная уточка успешно удаляется")
