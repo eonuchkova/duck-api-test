@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="TestSuite" time="0.0" tests="2" errors="0" skipped="0" failures="0">
-    <testcase name="DuckCreateTest.successfulCreateRubber" classname="post.DuckCreateTest" time="0.0"/>
-    <testcase name="DuckCreateTest.successfulCreateWood" classname="post.DuckCreateTest" time="0.0"/>
+<testsuite name="TestSuite" time="0.0" tests="16" errors="0" skipped="0" failures="0">
+    <testcase name="DuckDeleteTest.sqlDuckDeleteTest" classname="autotests.tests.delete.DuckDeleteTest" time="0.0"/>
+    <testcase name="DuckDeleteTest.successfulDelete" classname="autotests.tests.delete.DuckDeleteTest" time="0.0"/>
+    <testcase name="DuckFlyTest.DuckFlyWingsActive" classname="autotests.tests.get.DuckFlyTest" time="0.0"/>
+    <testcase name="DuckFlyTest.DuckFlyWingsFIXED" classname="autotests.tests.get.DuckFlyTest" time="0.0"/>
+    <testcase name="DuckFlyTest.DuckFlyWingsUNDEFINED" classname="autotests.tests.get.DuckFlyTest" time="0.0"/>
+    <testcase name="DuckPropertiesTest.DuckPropertiesCheckEven" classname="autotests.tests.get.DuckPropertiesTest" time="0.0"/>
+    <testcase name="DuckPropertiesTest.DuckPropertiesCheckOdd" classname="autotests.tests.get.DuckPropertiesTest" time="0.0"/>
+    <testcase name="DuckQuackTest.successfulQuackEven" classname="autotests.tests.get.DuckQuackTest" time="0.0"/>
+    <testcase name="DuckQuackTest.successfulQuackOdd" classname="autotests.tests.get.DuckQuackTest" time="0.0"/>
+    <testcase name="DuckSwimTest.DuckSwimExistingID" classname="autotests.tests.get.DuckSwimTest" time="0.0"/>
+    <testcase name="DuckSwimTest.DuckSwimNonExistingID" classname="autotests.tests.get.DuckSwimTest" time="0.0"/>
+    <testcase name="DuckCreateTest.sqlDuckCreateTest" classname="autotests.tests.post.DuckCreateTest" time="0.0"/>
+    <testcase name="DuckCreateTest.successfulCreateRubber" classname="autotests.tests.post.DuckCreateTest" time="0.0"/>
+    <testcase name="DuckCreateTest.successfulCreateWood" classname="autotests.tests.post.DuckCreateTest" time="0.0"/>
+    <testcase name="DuckUpdateTest.successfulDuckUpdateColorAndHeight" classname="autotests.tests.put.DuckUpdateTest" time="0.0"/>
+    <testcase name="DuckUpdateTest.successfulDuckUpdateColorAndSound" classname="autotests.tests.put.DuckUpdateTest" time="0.0"/>
 </testsuite>
