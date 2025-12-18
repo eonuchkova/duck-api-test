@@ -51,7 +51,6 @@ public class BaseTest extends TestNGCitrusSpringSupport {
                 .queryParam(queName, queValue));
     }
 
-    //метод не работает
     protected void sendUpdateRequest(TestCaseRunner runner, HttpClient URL, String path, String queName, String queValue,
                                      String queName2, String queValue2, String queName3, String queValue3,
                                      String queName4, String queValue4, String queName5, String queValue5) {
@@ -69,7 +68,7 @@ public class BaseTest extends TestNGCitrusSpringSupport {
         );
     }
 
-    protected void basicValidateResponse(TestCaseRunner runner,  HttpClient URL, HttpStatus httpStatus, ClassPathResource expectedPayloadPath){
+    protected void resourcesValidateResponse(TestCaseRunner runner, HttpClient URL, HttpStatus httpStatus, ClassPathResource expectedPayloadPath) {
         runner.$(
                 http()
                         .client(URL)
@@ -80,7 +79,8 @@ public class BaseTest extends TestNGCitrusSpringSupport {
                         .body(expectedPayloadPath)
         );
     }
-    protected void postCreateBasic(TestCaseRunner runner, HttpClient URL, String path, ObjectMappingPayloadBuilder objectMappingPayloadBuilder){
+
+    protected void postCreateBasic(TestCaseRunner runner, HttpClient URL, String path, ObjectMappingPayloadBuilder objectMappingPayloadBuilder) {
         runner.$(
                 http()
                         .client(URL)
@@ -92,29 +92,31 @@ public class BaseTest extends TestNGCitrusSpringSupport {
         );
     }
 
-    protected void sqlBasicStatement(TestCaseRunner runner, String sql){
+    protected void sqlBasicStatement(TestCaseRunner runner, String sql) {
         runner.$(sql(testDb)
                 .statement(sql));
     }
 
-    protected void sqlBasicQueryExtract(TestCaseRunner runner, String sql, String columnName, String variableName){
+    protected void sqlBasicQueryExtract(TestCaseRunner runner, String sql, String columnName, String variableName) {
         runner.$(query(testDb)
                 .statement(sql)
                 .extract(columnName, variableName)
         );
     }
-protected void sqlQueryValidationParameters (TestCaseRunner runner, String sql, String column1, String variable1,
-                                             String column2,String variable2, String column3,String variable3,
-                                             String column4,String variable4, String column5, String variable5){
-    runner.$(query(testDb)
-            .statement(sql)
-            .validate(column1, variable1)
-            .validate(column2, variable2)
-            .validate(column3, variable3)
-            .validate(column4, variable4)
-            .validate(column5, variable5)
-    );
-}
+
+    protected void sqlQueryValidationParameters(TestCaseRunner runner, String sql, String column1, String variable1,
+                                                String column2, String variable2, String column3, String variable3,
+                                                String column4, String variable4, String column5, String variable5) {
+        runner.$(query(testDb)
+                .statement(sql)
+                .validate(column1, variable1)
+                .validate(column2, variable2)
+                .validate(column3, variable3)
+                .validate(column4, variable4)
+                .validate(column5, variable5)
+        );
+    }
+
     public void validateResponseNotFound(TestCaseRunner runner, ClassPathResource expectedPayload) {
         runner.$(
                 http()
@@ -137,5 +139,9 @@ protected void sqlQueryValidationParameters (TestCaseRunner runner, String sql, 
                         .type(MessageType.JSON)
                         .body(expectedPayload)
         );
+    }
+
+    public boolean duckIsEven(int id) {
+        return id % 2 == 0;
     }
 }

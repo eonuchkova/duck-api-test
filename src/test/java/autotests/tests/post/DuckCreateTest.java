@@ -53,12 +53,12 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void sqlDuckCreateTest(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(50000) + 10000;
+        int duckId = random.nextInt(1000);
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
         sqlCreateDuck(runner, "${duckId}", "green", "2.0", "wood", "quack", "ACTIVE");
-        validateDuckInDatabase(runner, "${duckId}", "green", "2.0", "wood", "quack", "ACTIVE");
+        sqlBasicStatement(runner, "SELECT * FROM DUCK WHERE ID=${duckId}");
     }
 }

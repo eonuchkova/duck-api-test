@@ -3,15 +3,12 @@ package autotests.clients;
 import autotests.BaseTest;
 import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
-import com.consol.citrus.message.MessageType;
 import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
-
-import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 @Epic("Тесты duck-action-controller и action")
 public class DuckActionsAndControllersClient extends BaseTest {
@@ -80,7 +77,7 @@ public class DuckActionsAndControllersClient extends BaseTest {
 
     @Step("Валидация ответа с помощью json")
     public void validateGetResponse(TestCaseRunner runner, ClassPathResource expectedPayloadPath) {
-        basicValidateResponse(runner, duckService, HttpStatus.OK, expectedPayloadPath);
+        resourcesValidateResponse(runner, duckService, HttpStatus.OK, expectedPayloadPath);
     }
 
     @Step("Полет уточки")

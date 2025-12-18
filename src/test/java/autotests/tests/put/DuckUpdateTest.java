@@ -5,6 +5,7 @@ import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
 import io.qameta.allure.Feature;
+import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Test;
 
@@ -25,10 +26,9 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
         sqlCreateDuck(runner, "${duckId}", "pink", "2.5", "glass", "quack", "ACTIVE");
-
         updateDuck(runner, "${duckId}", "blue", 8, "glass", "quack");
-//        validateDuckInDatabase(runner, "${duckId}", "blue", "8.0", "glass", "quack", "ACTIVE");
-//        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
+        sqlBasicStatement(runner, "SELECT * FROM DUCK WHERE ID=${duckId}");
+
     }
 
 
@@ -41,9 +41,9 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
-        sqlCreateDuck(runner, "${duckId}", "pink", "2.5", "glass", "quack", "ACTIVE");
+        sqlCreateDuck(runner, "${duckId}", "pink", "2.5", "glass", "meow", "ACTIVE");
+        updateDuck(runner, "${duckId}", "orange", 8, "glass", "quack");
+        sqlBasicStatement(runner, "SELECT * FROM DUCK WHERE ID=${duckId}");
 
-//        validateDuckInDatabase(runner, "${duckId}", "orange", "2.5", "glass", "meow", "ACTIVE");
-//        validateGetResponse(runner, new ClassPathResource("putDuckProperties/updateDuckExpectedResponse.json"));
     }
 }

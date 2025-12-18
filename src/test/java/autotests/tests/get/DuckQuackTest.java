@@ -65,7 +65,4 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
         validateGetResponse(runner, new ClassPathResource("getExpectedResponses/quackExpectedResponseOdd.json"));
     }
 
-    public boolean duckIsEven(int id) {
-        return id % 2 == 0;
     }
-}
