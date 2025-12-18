@@ -2,6 +2,7 @@ package autotests.clients;
 
 import autotests.EndpointConfig;
 import autotests.payloads.DuckCreateProperties;
+import autotests.payloads.DuckIdProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.http.client.HttpClient;
 import com.consol.citrus.message.MessageType;
@@ -15,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 
 import static com.consol.citrus.http.actions.HttpActionBuilder.http;
-import static com.consol.citrus.validation.DelegatingPayloadVariableExtractor.Builder.fromBody;
 
 
 @ContextConfiguration(classes = {EndpointConfig.class})
@@ -63,7 +63,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
 
     }
 
-    public void validateCreateResponse(TestCaseRunner runner, String responseMessage) {
+    public void validateCreateResponse(TestCaseRunner runner, DuckIdProperties duckIdProperties) {
         runner.$(
                 http()
                         .client(duckService)
@@ -71,8 +71,7 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                         .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
-                        .extract(fromBody().expression("$.id", "duckId"))
-                        .body(responseMessage)
+                        .body(new ObjectMappingPayloadBuilder(duckIdProperties, new ObjectMapper()))
         );
     }
     public void validateResponse(TestCaseRunner runner, String responseMessage) {

@@ -40,7 +40,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
         duckSwim(runner, "${duckId}");
 
         // BUG DETECTED: existing duck id is not found
-        validateResponseOK(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
+        validateResponseNotFound(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
 
     }
 
@@ -58,7 +58,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
                 http()
                         .client(duckService)
                         .receive()
-                        .response(HttpStatus.NOT_FOUND)
+                        .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
                         .extract(fromBody().expression("$.id", "duckId"))
@@ -86,7 +86,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
                 http()
                         .client(duckService)
                         .receive()
-                        .response(HttpStatus.NOT_FOUND)
+                        .response(HttpStatus.OK)
                         .message()
                         .type(MessageType.JSON)
                         .body(expectedPayload)

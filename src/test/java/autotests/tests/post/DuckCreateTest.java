@@ -3,7 +3,6 @@ package autotests.tests.post;
 import autotests.EndpointConfig;
 import autotests.clients.DuckActionsAndControllersClient;
 import autotests.payloads.DuckCreateProperties;
-import autotests.payloads.DuckIdProperties;
 import com.consol.citrus.TestCaseRunner;
 import com.consol.citrus.annotations.CitrusResource;
 import com.consol.citrus.annotations.CitrusTest;
@@ -24,16 +23,9 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
                 .material("wood")
                 .sound("quack")
                 .wingsState("ACTIVE");
-        DuckIdProperties duckIdProperties = new DuckIdProperties()
-                .id("${duckId}")
-                .colorId("green")
-                .heightId(2)
-                .materialId("wood")
-                .soundId("quack")
-                .wingsStateId("ACTIVE");
 
         createDuck(runner, duckCreateProperties);
-        validateCreateResponse(runner, duckIdProperties);
+        validateGetResponse(runner, new ClassPathResource("duckPropertiesValidation/createDuckWoodValidation..json"));
     }
 
     @Test(description = "проверка, что уточка с материалом rubber успешно создается")
@@ -46,15 +38,7 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
                 .sound("quack")
                 .wingsState("FIXED");
         createDuck(runner, duckCreateProperties);
-
-        DuckIdProperties duckIdProperties = new DuckIdProperties()
-                .id("${duckId}")
-                .colorId("green")
-                .heightId(2)
-                .materialId("wood")
-                .soundId("quack")
-                .wingsStateId("ACTIVE");
-        validateCreateResponse(runner, duckIdProperties);
+        validateGetResponse(runner, new ClassPathResource("duckPropertiesValidation/createDuckRubberValidation.json"));
     }
 
 }
