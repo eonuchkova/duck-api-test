@@ -141,4 +141,27 @@ public class DuckActionsAndControllersClient extends TestNGCitrusSpringSupport {
                             .queryParam("id", id)
             );
         }
+    public void validateResponseNotFound(TestCaseRunner runner, ClassPathResource expectedPayload) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(expectedPayload)
+        );
+    }
+
+    public void validateResponseOK(TestCaseRunner runner, ClassPathResource expectedPayload) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.OK)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(expectedPayload)
+        );
+    }
 }
