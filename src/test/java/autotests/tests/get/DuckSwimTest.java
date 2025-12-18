@@ -23,7 +23,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckSwimExistingID(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(90000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(ctxt ->
@@ -41,7 +41,7 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckSwimNonExistingID(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(50000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(ctxt ->
@@ -53,28 +53,5 @@ public class DuckSwimTest extends DuckActionsAndControllersClient {
         validateResponseNotFound(runner, new ClassPathResource("getExpectedResponses/swimExpectedResponseNotFound.json"));
     }
 
-    public void validateResponseNotFound(TestCaseRunner runner, ClassPathResource expectedPayload) {
-        runner.$(
-                http()
-                        .client(duckService)
-                        .receive()
-                        .response(HttpStatus.NOT_FOUND)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(expectedPayload)
-        );
-    }
-
-    public void validateResponseOK(TestCaseRunner runner, ClassPathResource expectedPayload) {
-        runner.$(
-                http()
-                        .client(duckService)
-                        .receive()
-                        .response(HttpStatus.NOT_FOUND)
-                        .message()
-                        .type(MessageType.JSON)
-                        .body(expectedPayload)
-        );
-    }
 }
 

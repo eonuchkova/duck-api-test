@@ -19,7 +19,7 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckFlyWingsActive(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(90000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
@@ -34,12 +34,11 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckFlyWingsFIXED(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
-
+        int duckId = random.nextInt(50000) + 10000;
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
-        sqlCreateDuck(runner, "${duckId}", "blue", "3.0", "wool", "quack", "ACTIVE");
+        sqlCreateDuck(runner, "${duckId}", "blue", "3.0", "wool", "quack", "FIXED");
 
         duckFly(runner, "${duckId}");
         validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseFixed.json"));
@@ -49,12 +48,12 @@ public class DuckFlyTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void DuckFlyWingsUNDEFINED(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(90000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
-        sqlCreateDuck(runner, "${duckId}", "blue", "3.0", "wool", "quack", "ACTIVE");
+        sqlCreateDuck(runner, "${duckId}", "blue", "3.0", "wool", "quack", "UNDEFINED");
 
         duckFly(runner, "${duckId}");
         validateGetResponse(runner, new ClassPathResource("getExpectedResponses/flyExpectedResponseUndefined.json"));

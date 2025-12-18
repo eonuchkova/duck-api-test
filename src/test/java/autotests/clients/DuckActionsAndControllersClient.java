@@ -3,12 +3,15 @@ package autotests.clients;
 import autotests.BaseTest;
 import autotests.payloads.DuckCreateProperties;
 import com.consol.citrus.TestCaseRunner;
+import com.consol.citrus.message.MessageType;
 import com.consol.citrus.message.builder.ObjectMappingPayloadBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Step;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
+
+import static com.consol.citrus.http.actions.HttpActionBuilder.http;
 
 @Epic("Тесты duck-action-controller и action")
 public class DuckActionsAndControllersClient extends BaseTest {
@@ -46,6 +49,7 @@ public class DuckActionsAndControllersClient extends BaseTest {
                 "SOUND", newSound,
                 "WINGS_STATE", newWingsState
         );
+
     }
 
     @Step("Удаление уточки с помощью базы данных")

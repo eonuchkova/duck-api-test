@@ -24,7 +24,7 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
 
     public void successfulDelete(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(50000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
@@ -39,8 +39,7 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void sqlDuckDeleteTest(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
-
+        int duckId = random.nextInt(50000) + 10000;
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
                 databaseUpdate(runner, "DELETE FROM DUCK WHERE ID=${duckId}")));
@@ -48,7 +47,6 @@ public class DuckDeleteTest extends DuckActionsAndControllersClient {
 
         sqlExtractId(runner);
         sqlDuckDelete(runner, "${duckId}");
-        validateGetResponse(runner, new ClassPathResource("deleteDuc/deleteDuckExpectedResponse.json"));
-
+        sqlBasicStatement(runner, "SELECT * FROM DUCK WHERE ID=${duckId}");
     }
 }

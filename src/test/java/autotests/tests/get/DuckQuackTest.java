@@ -22,7 +22,7 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
 
         while (true) {
             Random random = new Random();
-            int duckId = random.nextInt(1000);
+            int duckId = random.nextInt(90000) + 10000;
 
             runner.variable("duckId", String.valueOf(duckId));
             runner.$(doFinally().actions(ctxt ->
@@ -47,7 +47,7 @@ public class DuckQuackTest extends DuckActionsAndControllersClient {
 
         while (true) {
             Random random = new Random();
-            int duckId = random.nextInt(1000);
+            int duckId = random.nextInt(90000) + 10000;
 
             runner.variable("duckId", String.valueOf(duckId));
             runner.$(doFinally().actions(ctxt ->

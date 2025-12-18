@@ -115,4 +115,27 @@ protected void sqlQueryValidationParameters (TestCaseRunner runner, String sql, 
             .validate(column5, variable5)
     );
 }
+    public void validateResponseNotFound(TestCaseRunner runner, ClassPathResource expectedPayload) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(expectedPayload)
+        );
+    }
+
+    public void validateResponseOK(TestCaseRunner runner, ClassPathResource expectedPayload) {
+        runner.$(
+                http()
+                        .client(duckService)
+                        .receive()
+                        .response(HttpStatus.NOT_FOUND)
+                        .message()
+                        .type(MessageType.JSON)
+                        .body(expectedPayload)
+        );
+    }
 }

@@ -21,7 +21,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
     public void DuckPropertiesCheckOdd(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         while (true) {
             Random random = new Random();
-            int duckId = random.nextInt(1000);
+            int duckId = random.nextInt(90000) + 10000;
 
             runner.variable("duckId", String.valueOf(duckId));
             runner.$(doFinally().actions(ctxt ->
@@ -44,7 +44,7 @@ public class DuckPropertiesTest extends DuckActionsAndControllersClient {
     public void DuckPropertiesCheckEven(@Optional @CitrusResource TestCaseRunner runner, @CitrusResource TestContext context) {
         while (true) {
             Random random = new Random();
-            int duckId = random.nextInt(1000);
+            int duckId = random.nextInt(90000) + 10000;
 
             runner.variable("duckId", String.valueOf(duckId));
             runner.$(doFinally().actions(ctxt ->

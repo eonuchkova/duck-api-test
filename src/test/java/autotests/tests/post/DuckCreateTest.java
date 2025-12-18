@@ -53,7 +53,7 @@ public class DuckCreateTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void sqlDuckCreateTest(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(50000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->

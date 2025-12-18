@@ -19,7 +19,7 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void successfulDuckUpdateColorAndHeight(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(90000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
@@ -36,7 +36,7 @@ public class DuckUpdateTest extends DuckActionsAndControllersClient {
     @CitrusTest
     public void successfulDuckUpdateColorAndSound(@Optional @CitrusResource TestCaseRunner runner) {
         Random random = new Random();
-        int duckId = random.nextInt(1000);
+        int duckId = random.nextInt(90000) + 10000;
 
         runner.variable("duckId", String.valueOf(duckId));
         runner.$(doFinally().actions(context ->
